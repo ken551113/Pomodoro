@@ -6,16 +6,20 @@
         <a>+</a>
       </div>
       <div class="todo-now">
-        <div class="radio"></div>
-        <div class="content">the First thing to do today</div>
+          <!-- <div class="radio"></div>
+          <div class="content">the First thing to do today</div> -->
+        <input type="checkbox" name id="todonow" class="checkbox" />
+        <label for="todonow"></label>
+        <span class="content">the First thing to do today</span>
       </div>
       <div class="Time-Counter">25:00</div>
       <ul class="todo-list">
         <li class="todo" v-for="todo in todolist" :key="todo.id">
-          <div class="radio"></div>
-          <div class="content">{{todo.name}}</div>
-          <!-- <input type="checkbox" name="" id="checkbox">
-          <span class="content">{{todo.name}}</span>-->
+          <!-- <div class="radio"></div>
+          <div class="content">{{todo.name}}</div> -->
+          <input type="checkbox" name :id="todo.id" class="checkbox" />
+          <label :for="todo.id"></label>
+          <span class="content">{{todo.name}}</span>
         </li>
         <router-link to="/tools/" class="todo-list-more">more</router-link>
       </ul>
@@ -53,9 +57,9 @@ export default {
   data() {
     return {
       todolist: [
-        { id: 123, name: "ken" },
-        { id: 234, name: "amy" },
-        { id: 345, name: "cindy" }
+        { id: 123, name: "the second thing to do today" },
+        { id: 234, name: "the third thing to do today" },
+        { id: 345, name: "the forth thing to do today" }
       ]
     };
   }
@@ -63,6 +67,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.checkbox {
+  display: none;
+}
+label {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(black, 0);
+  border-radius: 50%;
+  position: relative;
+  vertical-align: middle;
+  opacity: 1;
+}
+
+label::before {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #003164;
+  cursor: pointer;
+  position: absolute;
+  content: "";
+  opacity: 1;
+  transition: 0.5s;
+  vertical-align: middle;
+}
+
+label::after {
+  transition: opacity 0.5s ease;
+  transition-delay: 0.25s;
+  cursor: pointer;
+  position: absolute;
+  content: "";
+  opacity: 0;
+}
+
+.checkbox:checked + label::before {
+  // animation:ani2 .5s ;
+  border: 2px solid #003164;
+  transform: scale(2, 2);
+  opacity: 0;
+}
+
+.checkbox:checked + label::after {
+  border: 2px solid #5574df;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  width: 12px;
+  height: 6px;
+  top: 50%;
+  margin-top: -6px;
+  left: 50%;
+  margin-left: -5px;
+  opacity: 1;
+}
+
 .main {
   display: flex;
   justify-content: center;
@@ -120,6 +181,7 @@ export default {
     font-weight: bold;
     top: 50%;
     transform: translateY(-100%) translateY(-103px);
+    width: 454px;
 
     .radio {
       display: inline-block;
@@ -130,9 +192,66 @@ export default {
     }
     .content {
       display: inline-block;
+      position: absolute;
+      
+      left: 64px;
+    }
+
+    .checkbox {
+      display: none;
+    }
+    label {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      border: 2px solid rgba(black, 0);
+      border-radius: 50%;
       position: relative;
-      bottom: 20px;
-      left: 16px;
+      vertical-align: middle;
+      opacity: 1;
+    }
+
+    label::before {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #003164;
+      cursor: pointer;
+      position: absolute;
+      content: "";
+      opacity: 1;
+      transition: 0.5s;
+      vertical-align: middle;
+    }
+
+    label::after {
+      transition: opacity 0.5s ease;
+      transition-delay: 0.25s;
+      cursor: pointer;
+      position: absolute;
+      content: "";
+      opacity: 0;
+    }
+
+    .checkbox:checked + label::before {
+      // animation:ani2 .5s ;
+      border: 2px solid #003164;
+      transform: scale(2, 2);
+      opacity: 0;
+    }
+
+    .checkbox:checked + label::after {
+      border: 2px solid #5574df;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      width: 12px;
+      height: 6px;
+      top: 50%;
+      margin-top: -6px;
+      left: 50%;
+      margin-left: -5px;
+      opacity: 1;
     }
   }
   .Time-Counter {
@@ -169,7 +288,7 @@ export default {
         display: inline-block;
         position: absolute;
         left: 28px;
-        top: 0px;
+        top: 3px;
         height: 24px;
         font-size: 16px;
         color: #003164;
