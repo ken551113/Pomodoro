@@ -25,8 +25,8 @@
     </div>
     <div class="right">
       <router-link to="/" class="back-btn">
-          <i class="material-icons">close</i>
-        </router-link>
+        <i class="material-icons">close</i>
+      </router-link>
       <router-view></router-view>
     </div>
   </div>
@@ -86,36 +86,36 @@ export default {};
     width: 116px;
     height: 116px;
     left: 50%;
-    transform:  translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
     border-radius: 50%;
     background-color: #003164;
-    &::before{
+    &::before {
       content: " ";
       width: 104px;
       height: 104px;
       position: absolute;
       border: #ff4384 2px solid;
       border-radius: 50%;
-      left:50%;
-      top:50%;
-    transform:  translateY(-50%) translateX(-50%);
+      left: 50%;
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
     }
-    .play-btn{
+    .play-btn {
       color: #ff4384;
       font-size: 110px;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translateX(-50%) translateY(-50%);
-      &::before{
+      &::before {
         content: "";
         position: absolute;
         background-color: #fff;
         width: 50%;
         height: 50%;
-        left:50%;
-        top:50%;
-        transform:  translateY(-50%) translateX(-50%);
+        left: 50%;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
         z-index: -1;
       }
     }
@@ -129,32 +129,32 @@ export default {};
     color: #ff4384;
     font-weight: bold;
   }
-  .todo-now{
+  .todo-now {
     position: absolute;
     left: 50%;
-    top:132px;
+    top: 132px;
     width: 232px;
     text-align: center;
     transform: translateX(-50%);
     font-size: 16px;
     font-weight: bold;
-    color:#003164;
+    color: #003164;
   }
 }
 .right {
   position: relative;
   width: 56.25%;
   height: 100%;
-  .back-btn{
+  .back-btn {
     position: absolute;
     right: 85px;
     top: 48px;
     width: 48px;
     height: 48px;
-    color:white;
-    i{
+    color: white;
+    i {
       font-size: 48px;
-    }    
+    }
   }
 }
 </style>

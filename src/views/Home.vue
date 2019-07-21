@@ -15,12 +15,9 @@
           <div class="radio"></div>
           <div class="content">{{todo.name}}</div>
           <!-- <input type="checkbox" name="" id="checkbox">
-          <span class="content">{{todo.name}}</span> -->
-
+          <span class="content">{{todo.name}}</span>-->
         </li>
-        <router-link to="/tools/" class="todo-list-more">
-          more
-        </router-link>
+        <router-link to="/tools/" class="todo-list-more">more</router-link>
       </ul>
     </div>
     <div class="right">
@@ -188,7 +185,7 @@ export default {
       color: #ff4384;
       text-decoration: none;
       transition: 0.5s;
-      &:hover{
+      &:hover {
         color: #003164;
       }
     }
