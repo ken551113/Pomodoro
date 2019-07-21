@@ -14,8 +14,13 @@
         <li class="todo" v-for="todo in todolist" :key="todo.id">
           <div class="radio"></div>
           <div class="content">{{todo.name}}</div>
+          <!-- <input type="checkbox" name="" id="checkbox">
+          <span class="content">{{todo.name}}</span> -->
+
         </li>
-        <div class="todo-list-more">more</div>
+        <router-link to="/tools/" class="todo-list-more">
+          more
+        </router-link>
       </ul>
     </div>
     <div class="right">
@@ -28,9 +33,15 @@
     </div>
     <div class="nav">
       <div class="nav-list">
-        <i class="nav-button material-icons">list</i>
-        <i class="nav-button material-icons">assessment</i>
-        <i class="nav-button material-icons">library_music</i>
+        <router-link to="/tools/" class="nav-button">
+          <i class="material-icons">list</i>
+        </router-link>
+        <router-link to="/tools/analytics" class="nav-button">
+          <i class="material-icons">assessment</i>
+        </router-link>
+        <router-link to="/tools/ringtones" class="nav-button">
+          <i class="material-icons">library_music</i>
+        </router-link>
         <div class="logo">POMODORO</div>
       </div>
     </div>
@@ -42,14 +53,14 @@
 //import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  data(){
-   return {
-     todolist:[
-       {id:123,name:"ken"},
-       {id:234,name:"amy"},
-       {id:345,name:"cindy"},
-     ]
-   };
+  data() {
+    return {
+      todolist: [
+        { id: 123, name: "ken" },
+        { id: 234, name: "amy" },
+        { id: 345, name: "cindy" }
+      ]
+    };
   }
 };
 </script>
@@ -105,22 +116,22 @@ export default {
   width: 43.75%;
   background-color: #ffedf7;
   height: 100%;
-  .todo-now{
+  .todo-now {
     position: absolute;
     font-size: 24px;
-    color:#003164;
+    color: #003164;
     font-weight: bold;
-    top:50%;
+    top: 50%;
     transform: translateY(-100%) translateY(-103px);
-    
-    .radio{
+
+    .radio {
       display: inline-block;
       width: 48px;
       height: 48px;
-      border:2px #003164 solid;
-      border-radius:  50%;
+      border: 2px #003164 solid;
+      border-radius: 50%;
     }
-    .content{
+    .content {
       display: inline-block;
       position: relative;
       bottom: 20px;
@@ -138,26 +149,26 @@ export default {
     font-weight: bold;
     left: 80px;
   }
-  .todo-list{
+  .todo-list {
     position: absolute;
-    bottom:76px;
+    bottom: 76px;
     list-style: none;
     padding: 0px;
     width: 445px;
-    .todo{
+    .todo {
       width: 100%;
       height: 32px;
       position: relative;
       margin-bottom: 9px;
-      border-bottom: 1px solid rgba(#003164,0.2);
-      .radio{
+      border-bottom: 1px solid rgba(#003164, 0.2);
+      .radio {
         display: inline-block;
-        width:24px;
+        width: 24px;
         height: 24px;
         border-radius: 50%;
-        border:2px solid #003164;
+        border: 2px solid #003164;
       }
-      .content{
+      .content {
         display: inline-block;
         position: absolute;
         left: 28px;
@@ -169,12 +180,17 @@ export default {
         font-weight: bold;
       }
     }
-    .todo-list-more{
+    .todo-list-more {
       position: absolute;
       right: 0px;
       font-size: 16px;
       font-weight: bold;
       color: #ff4384;
+      text-decoration: none;
+      transition: 0.5s;
+      &:hover{
+        color: #003164;
+      }
     }
   }
 }
@@ -250,13 +266,15 @@ export default {
     right: 85px;
     padding-top: 45px;
     .nav-button {
-      // color: white;
-      font-size: 36px;
-      margin-bottom: 48px;
-      transition: 0.5s;
-      cursor: pointer;
-      &:hover {
-        transform: scale(1.4);
+      color: white;
+      i {
+        font-size: 36px;
+        margin-bottom: 48px;
+        transition: 0.5s;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.4);
+        }
       }
     }
     .logo {

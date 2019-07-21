@@ -21,7 +21,7 @@ export default new Router({
       component: Tools,
       children: [
         { path: "", component: TodoList },
-        { path: "analytices", component: Analytics },
+        { path: "analytics", component: Analytics },
         { path: "ringtones", component: Ringtones }
       ]
     }
