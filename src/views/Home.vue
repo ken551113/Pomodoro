@@ -1,10 +1,7 @@
 <template>
   <div class="main">
     <div class="left">
-      <div class="newTodo">
-        <input type="text" name id placeholder="ADD A NEW MISSION…" />
-        <a>+</a>
-      </div>
+      <NewTodo></NewTodo>
       <div class="todo-now">
           <!-- <div class="radio"></div>
           <div class="content">the First thing to do today</div> -->
@@ -14,12 +11,10 @@
       </div>
       <div class="Time-Counter">25:00</div>
       <ul class="todo-list">
-        <li class="todo" v-for="todo in todolist" :key="todo.id">
-          <!-- <div class="radio"></div>
-          <div class="content">{{todo.name}}</div> -->
-          <input type="checkbox" name :id="todo.id" class="checkbox" />
-          <label :for="todo.id"></label>
-          <span class="content">{{todo.name}}</span>
+        <li class="todo" v-for="todo in todolist" :key="todo.key">
+          <input type="checkbox" name :id="todo.title" class="checkbox" />
+          <label :for="todo.title"></label>
+          <span class="content">{{todo.title}}</span>
         </li>
         <router-link to="/tools/" class="todo-list-more">more</router-link>
       </ul>
@@ -52,16 +47,28 @@
 <script>
 // @ is an alias to /src
 //import HelloWorld from "@/components/HelloWorld.vue";
+import NewTodo from "../components/NewTodo";
 
 export default {
+  components:{
+     NewTodo
+  },
   data() {
     return {
-      todolist: [
-        { id: 123, name: "the second thing to do today" },
-        { id: 234, name: "the third thing to do today" },
-        { id: 345, name: "the forth thing to do today" }
-      ]
+      // todolist: [
+      //   { id: 123, name: "the second thing to do today" },
+      //   { id: 234, name: "the third thing to do today" },
+      //   { id: 345, name: "the forth thing to do today" }
+      // ]
     };
+  },
+  computed:{
+    todoNow(){
+      return this.$store.state.todolist;
+    },
+    todolist(){
+      return this.$store.state.todolist.slice(0,4);
+    }
   }
 };
 </script>
@@ -241,16 +248,16 @@ label::after {
     }
 
     .checkbox:checked + label::after {
-      border: 2px solid #5574df;
+      border: 3px solid #5574df;
       border-top: none;
       border-right: none;
       transform: rotate(-45deg);
-      width: 12px;
-      height: 6px;
+      width: 24px;
+      height: 12px;
       top: 50%;
-      margin-top: -6px;
+      margin-top: -12px;
       left: 50%;
-      margin-left: -5px;
+      margin-left: -12px;
       opacity: 1;
     }
   }

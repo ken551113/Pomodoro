@@ -27,13 +27,20 @@
       <router-link to="/" class="back-btn">
         <i class="material-icons">close</i>
       </router-link>
-      <router-view></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import HelloWorld from "../components/HelloWorld";
+export default {
+  components: {
+    HelloWorld
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -156,5 +163,13 @@ export default {};
       font-size: 48px;
     }
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
