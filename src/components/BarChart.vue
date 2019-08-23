@@ -3,6 +3,7 @@ import { Bar, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
 Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontSize = 16;
+Chart.defaults.global.tooltips = false;
 export default {
   extends: Bar,
   mixins: [reactiveProp],
@@ -12,9 +13,12 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+  
         legend: {
-          display: false
+            display: false,
+
         },
+        
         scales: {
           yAxes: [
             {
