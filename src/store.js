@@ -5,11 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    mode: "break",
+    mode: "work",
     timer: null,
     modeTime: {
       work: 1500,
-      break: 10
+      break: 300
     },
     audio: null,
     ring: {
