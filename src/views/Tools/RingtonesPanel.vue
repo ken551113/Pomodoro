@@ -11,8 +11,6 @@ import RingtoneRadioList from "../../components/RingtoneRadioList";
 export default {
   data() {
     return {
-      workRing: "none",
-      breakRing: "none",
       ringOptions: [
         { value: "none" },
         { value: "default" },
@@ -37,10 +35,18 @@ export default {
   },
   methods:{
     changeWorkRing(currentSelect){
-      this.workRing = currentSelect;
+      this.$store.commit("changeRing",{mode:"work", ring:currentSelect});
     },    
     changeBreakRing(currentSelect){
-      this.breakRing = currentSelect;
+      this.$store.commit("changeRing",{mode:"break", ring:currentSelect});
+    }
+  },
+  computed:{
+    workRing(){
+      return this.$store.state.ring.work;
+    },
+    breakRing(){
+      return this.$store.state.ring.break;
     }
   }
 };

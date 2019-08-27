@@ -10,9 +10,17 @@
     </div>
     <ul class="todo-list" :class="closed?'close':''">
       <li class="todo" v-for="todo in todolist" :key="todo.id">
-        <input type="checkbox" name :id="todo.id" class="checkbox" />
+        <input
+          type="checkbox"
+          name
+          :id="todo.id"
+          class="checkbox"
+          @change="changeStatus($event,todo)"
+          :checked="todo.finish"
+        />
         <label :for="todo.id"></label>
-        <span class="content">{{todo.name}}</span>
+        <span class="content" :class="todo.finish?'done':''" >{{todo.title}}</span>
+        <i class="material-icons doItNow" @click="doItNow(todo)">play_circle_outline</i>
       </li>
     </ul>
   </div>
@@ -23,17 +31,26 @@ export default {
   props: ["title"],
   data() {
     return {
-      closed: false,
-      todolist: [
-        { id: 123, name: "the second thing to do today" },
-        { id: 234, name: "the third thing to do today" },
-        { id: 345, name: "the forth thing to do today" }
-      ]
+      closed: false
     };
   },
   methods: {
     toggleLsit() {
       this.closed = !this.closed;
+    },
+    changeStatus(event, todo) {
+      let index = this.$store.state.todolist.indexOf(todo);
+      let checked = event.target.checked;
+      this.$store.commit("changeStatus", { index, checked });
+    },
+    doItNow(todo){
+      this.$store.commit("changeTodoNow",todo);
+    }
+  },
+  computed: {
+    todolist() {
+      let list = this.$store.state.todolist;
+      return list.filter(todo => todo.finish === (this.title === "DONE"));
     }
   }
 };
@@ -86,6 +103,8 @@ export default {
     position: relative;
     margin-bottom: 9px;
     border-bottom: 1px solid rgba(white, 0.2);
+          line-height: 24px;
+
     .content {
       display: inline-block;
       position: absolute;
@@ -96,6 +115,20 @@ export default {
       color: white;
       line-height: 24px;
       font-weight: bold;
+      &.done{
+        text-decoration:line-through;
+      }
+    }
+    .doItNow{
+      font-size: 24px;
+      float: right;
+      color: white;
+      margin-top: 3px;
+      transition: 0.3s;
+      &:hover{
+        cursor:pointer;
+        color:#ff4384;
+        }
     }
     .checkbox {
       display: none;
@@ -130,14 +163,14 @@ export default {
       cursor: pointer;
       position: absolute;
       content: "";
-      opacity: 0;
+      opacity: 1;
     }
 
     .checkbox:checked + label::before {
       // animation:ani2 .5s ;
       border: 2px solid white;
-      transform: scale(2, 2);
-      opacity: 0;
+      //transform: scale(2, 2);
+      opacity: 1;
     }
 
     .checkbox:checked + label::after {

@@ -1,7 +1,7 @@
 <template>
   <div class="newTodo">
-    <input type="text" name id placeholder="ADD A NEW MISSION…" v-model="todo"/>
-    <a @click="AddTodo">+</a>
+    <input type="text" name id placeholder="ADD A NEW MISSION…" v-model="todo" @keyup.enter="AddTodo"/>
+    <a @click="AddTodo" >+</a>
   </div>
 </template>
 
@@ -20,9 +20,10 @@ export default {
       var timestamp = Math.floor(dateTime / 1000);
       this.$store.commit('AddTodo',{
         title : this.todo,
-        key: timestamp,
+        id: timestamp,
         finish : false
       })
+      this.todo="";
     }
   }
 };

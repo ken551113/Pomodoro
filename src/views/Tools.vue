@@ -1,5 +1,5 @@
 <template>
-  <div class="tools">
+  <div class="tools" :class="this.$store.state.mode === 'work' ? '':'break'">
     <div class="left">
       <div class="tools-nav">
         <router-link to="/tools/" class="active">
@@ -17,10 +17,24 @@
       </div>
       <div class="clock">
         <div class="button">
-          <i class="material-icons play-btn">play_circle_filled</i>
+          <percent-bar
+            v-if="this.$store.state.mode === 'work'"
+            key="2314"
+            class="timer"
+            :value="calcPercent"
+            :options="{radius: 54,circleWidth: 10,pathColors: ['', '#ff4384']}"
+          ></percent-bar>
+          <percent-bar
+            v-else
+            key="12123"
+            class="timer"
+            :value="calcPercent"
+            :options="{radius: 54,circleWidth: 10,pathColors: ['', '#00a7ff']}"
+          ></percent-bar>
+          <i class="material-icons play-btn" @click="startCounter">{{this.$store.state.timer===null?"play_circle_filled":"pause_circle_filled"}}</i>
         </div>
-        <div class="display-time">25:00</div>
-        <div class="todo-now">the First thing to do today</div>
+        <div class="display-time">{{displayTime}}</div>
+        <div class="todo-now">{{todoNow.title}}</div>
       </div>
     </div>
     <div class="right">
@@ -35,10 +49,36 @@
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import { mapGetters } from "vuex";
 export default {
-  components: {
-    HelloWorld
+  data() {
+    return {};
+  },
+  methods: {
+    startCounter() {
+      if (this.$store.state.timer === null) {
+        this.$store.commit("startCountDown");
+      } else {
+        this.$store.commit("stopCountDown");
+      }
+    },
+  },
+  computed: {
+    calcPercent() {
+      let base = this.$store.state.mode === "work" ? 1500 : 300;
+      let percent =
+        100 - (this.$store.state.modeTime[this.$store.state.mode] / base) * 100;
+      if (percent === 100) {
+        this.$store.commit("stopCountDown");
+        this.$store.commit("resetModeTime");
+        this.$store.commit("changeMode");
+        let todoNow = this.$store.getters.todoNow;
+        let index = this.$store.state.todolist.indexOf(todoNow);
+        this.$store.commit("changeStatus", { index, checked: true });
+      }
+      return percent;
+    },
+    ...mapGetters(["displayTime", "todoNow", "otherTodo"])
   }
 };
 </script>
@@ -50,6 +90,25 @@ export default {
   display: flex;
   justify-content: center;
   background-color: #003164;
+  &.break {
+    .router-link-exact-active {
+      color: #00a7ff;
+    }
+    .clock {
+      .button {
+        &::before {
+          border: #00a7ff 2px solid;
+        }
+      }
+      .play-btn {
+        color: #00a7ff;
+      }
+
+      .display-time {
+        color: #00a7ff;
+      }
+    }
+  }
 }
 .left {
   position: relative;
@@ -87,6 +146,13 @@ export default {
     transform: translateY(50%);
     bottom: 0px;
     left: 85px;
+    .timer {
+      position: absolute;
+      height: 110px;
+      width: 110px;
+      left: 4px;
+      top: 4px;
+    }
   }
   .button {
     position: absolute;
@@ -96,6 +162,7 @@ export default {
     transform: translateY(-50%) translateX(-50%);
     border-radius: 50%;
     background-color: #003164;
+    box-sizing: border-box;
     &::before {
       content: " ";
       width: 104px;
@@ -124,6 +191,9 @@ export default {
         top: 50%;
         transform: translateY(-50%) translateX(-50%);
         z-index: -1;
+      }
+      &:hover{
+        cursor: pointer;
       }
     }
   }
