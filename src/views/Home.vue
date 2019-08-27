@@ -99,7 +99,7 @@ export default {
       let percent =
         100 - (this.$store.state.modeTime[this.$store.state.mode] / base) * 100;
       if (percent === 100) {
-                this.playAudio() ;
+        this.playAudio();
 
         this.$store.commit("stopCountDown");
         this.$store.commit("resetModeTime");
@@ -143,11 +143,13 @@ export default {
     playAudio() {
       let ringValue = this.$store.state.ring[this.$store.state.mode];
       if (ringValue === "none") {
-        if(this.audio) this.audio.pause();
+        if (this.audio) this.audio.pause();
         this.audio = null;
-      } else { 
-        if(this.audio) this.audio.pause();
-        this.audio = new Audio(`${process.env.BASE_URL}Ringtones/${ringValue}.mp3`);
+      } else {
+        if (this.audio) this.audio.pause();
+        this.audio = new Audio(
+          `${process.env.BASE_URL}Ringtones/${ringValue}.mp3`
+        );
         this.audio.play();
       }
     }
@@ -437,7 +439,7 @@ label::after {
       transform: translateY(-50%) translateX(-50%);
       border-radius: 50%;
       border: #ff4384 4px solid;
-      .timer{
+      .timer {
         position: absolute;
         top: -1px;
         left: -1.5px;

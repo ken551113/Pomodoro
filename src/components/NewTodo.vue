@@ -1,29 +1,36 @@
 <template>
-  <div class="newTodo">
-    <input type="text" name id placeholder="ADD A NEW MISSION…" v-model="todo" @keyup.enter="AddTodo"/>
-    <a @click="AddTodo" >+</a>
+  <div class="newTodo" :class="this.$store.state.mode === 'work'?'':'break'">
+    <input
+      type="text"
+      name
+      id
+      placeholder="ADD A NEW MISSION…"
+      v-model="todo"
+      @keyup.enter="AddTodo"
+    />
+    <a @click="AddTodo">+</a>
   </div>
 </template>
 
 <script>
 export default {
   name: "NewTodo",
-  data(){
-    return{
+  data() {
+    return {
       todo: ""
-    }
+    };
   },
-  methods:{
-    AddTodo(){
-      if(!this.todo) return;
+  methods: {
+    AddTodo() {
+      if (!this.todo) return;
       var dateTime = Date.now();
       var timestamp = Math.floor(dateTime / 1000);
-      this.$store.commit('AddTodo',{
-        title : this.todo,
+      this.$store.commit("AddTodo", {
+        title: this.todo,
         id: timestamp,
-        finish : false
-      })
-      this.todo="";
+        finish: false
+      });
+      this.todo = "";
     }
   }
 };
@@ -44,6 +51,7 @@ export default {
     width: 100%;
     height: 100%;
     font-size: 16px;
+    color:#ff4384;
     &:focus {
       outline: none;
     }
@@ -66,6 +74,17 @@ export default {
     text-align: center;
     line-height: 24px;
     cursor: pointer;
+  }
+  &.break {
+    input {
+      color:#00a7ff;
+      &::placeholder {
+        color: #00a7ff;
+      }
+    }
+    a{
+      color:#00a7ff;
+    }
   }
 }
 </style>
